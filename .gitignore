@@ -1,0 +1,8 @@
+fuel/app/logs/*/*/*
+fuel/app/cache/*/*
+fuel/app/config/twitter.php
+fuel/app/config/ninjauth.php
+fuel/app/config/development/db.php
+.buildpath
+.project
+.settings/*
