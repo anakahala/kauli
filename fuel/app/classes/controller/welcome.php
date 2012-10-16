@@ -20,11 +20,6 @@ class Controller_Welcome extends Controller
 	 */
 	public function action_index()
 	{
-		if (!Twitter::logged_in()) // ログイン済みか検証
-		{
-			Twitter::set_callback(Uri::current());// 戻り先 URL
-			Twitter::login();// Twitter のログイン画面へ遷移
-		}
 		return Response::forge(View::forge('welcome/index'));
 	}
 
