@@ -5,18 +5,21 @@ use Fuel\Core\Response;
 
 class Controller_Auth extends NinjAuth\Controller
 {
-	public function action_logout() {
+	public function action_logout() 
+	{
 		Auth::logout();
 		Session::set_flash('flash_message', 'ログアウトしました');
 		Response::redirect('/');
 	}
 	
-	public function action_linked() {
+	public function action_linked() 
+	{
 		Session::set_flash('flash_message', 'アカウントの紐付けをしました');
-		Response::redirect('/');
+		Response::redirect('kaumono/');
 	}
 	
-	public function action_register() {
+	public function action_register() 
+	{
 		$user_hash = Session::get('ninjauth.user');
 		$authentication = Session::get('ninjauth.authentication');
 		
@@ -49,9 +52,9 @@ class Controller_Auth extends NinjAuth\Controller
 				'expires' => $authentication['expires'],
 				'created_at' => time(),
 				))->save();
-					
+
 				Session::set_flash('ninjauth.user_id', $user_id);
-				Response::redirect(static::$registered_redirect);
+				Response::redirect('kaumono/');
 			}
 		}
 	}
