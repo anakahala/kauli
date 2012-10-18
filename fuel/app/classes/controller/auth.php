@@ -8,14 +8,14 @@ class Controller_Auth extends NinjAuth\Controller
 	public function action_logout() 
 	{
 		Auth::logout();
-		Session::set_flash('flash_message', 'ログアウトしました');
-		Response::redirect('/');
+		Session::set_flash('success', 'ログアウトしました');
+		Response::redirect('login/');
 	}
 	
 	public function action_linked() 
 	{
-		Session::set_flash('flash_message', 'アカウントの紐付けをしました');
-		Response::redirect('kaumono/');
+		Session::set_flash('success', 'アカウントの紐付けをしました');
+		Response::redirect('user/');
 	}
 	
 	public function action_register() 
@@ -31,8 +31,8 @@ class Controller_Auth extends NinjAuth\Controller
 		$full_name = Arr::get($user_hash, 'name');
 
 		if (empty($username) or empty($full_name)) {
-			Session::set_flash('flash_message', 'error!!');
-			Response::redirect('/');
+			Session::set_flash('error', 'error!!');
+			Response::redirect('login/index');
 		} else {
 			$user_id = $strategy->adapter->create_user(array(
 					'username' => $username,
@@ -40,7 +40,7 @@ class Controller_Auth extends NinjAuth\Controller
 					'email' => 'dummy@dummy.d',
 					'password' => Str::random('alnum', 16),
 			));
-				
+			
 			if ($user_id) {
 				NinjAuth\Model_Authentication::forge(array(
 				'user_id' => $user_id,
@@ -53,8 +53,8 @@ class Controller_Auth extends NinjAuth\Controller
 				'created_at' => time(),
 				))->save();
 
-				Session::set_flash('ninjauth.user_id', $user_id);
-				Response::redirect('kaumono/');
+				Session::set_flash('success', $user_id);
+				Response::redirect('user/');
 			}
 		}
 	}
